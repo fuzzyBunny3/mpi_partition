@@ -8,6 +8,8 @@ namespace mango {
   //////////////////////////////////////////////////////////////////////////////////////
   // Items related to partitioning the processors into worker groups:
 
+  class test_mpi_partition;
+
   class MPI_Partition {
   private:
     MPI_Comm comm_world;
@@ -49,6 +51,8 @@ namespace mango {
     int get_worker_group();
     int get_N_worker_groups();
     void set_N_worker_groups(int);
+
+    friend class test_mpi_partition;
   };
 
 }
