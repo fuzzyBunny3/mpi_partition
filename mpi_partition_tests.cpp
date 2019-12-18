@@ -6,12 +6,12 @@
 #include "mango.hpp"
 #include "mpi.h"
 
-// The test_mpi_partition class exists purely to expose private variables and methods, so they can be tested.
-class mango::test_mpi_partition {
-public:
-  static int rank_world(MPI_Partition mp) {return mp.rank_world;};
-};
+// See the discussion of Boost towards the end of here: https://stackoverflow.com/questions/3676664/unit-testing-of-private-methods
+namespace mango {
+  class MPI_Partition_test: public MPI_Partition {};
+}
 
+BOOST_FIXTURE_TEST_SUITE(SomeTests, mango::MPI_Partition_test)
 
 // https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/boost_test/tests_organization/fixtures/global.html
 
@@ -64,9 +64,15 @@ BOOST_AUTO_TEST_CASE(test_mpi_partition_init) {
 
 // Can we access a private variable?
 BOOST_AUTO_TEST_CASE(test_mpi_partition_init_private) {
-  mango::MPI_Partition mpi_partition;
-  mpi_partition.set_N_worker_groups(1);
-  mpi_partition.init(MPI_COMM_WORLD);
-  int rank_world = mango::test_mpi_partition::rank_world(mpi_partition);
+  set_N_worker_groups(1);
+  init(MPI_COMM_WORLD);
   BOOST_TEST(rank_world == 0);
 }
+
+BOOST_AUTO_TEST_CASE(test_mpi_partition_init_private2) {
+  set_N_worker_groups(2);
+  init(MPI_COMM_WORLD);
+  BOOST_TEST(rank_world == 0);
+}
+
+BOOST_AUTO_TEST_SUITE_END()

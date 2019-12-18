@@ -8,10 +8,9 @@ namespace mango {
   //////////////////////////////////////////////////////////////////////////////////////
   // Items related to partitioning the processors into worker groups:
 
-  class test_mpi_partition;
-
   class MPI_Partition {
-  private:
+    // Rationale for protected rather than private: the discussion of Boost towards the end of here: https://stackoverflow.com/questions/3676664/unit-testing-of-private-methods
+  protected:
     MPI_Comm comm_world;
     MPI_Comm comm_worker_groups;
     MPI_Comm comm_group_leaders;
@@ -51,8 +50,6 @@ namespace mango {
     int get_worker_group();
     int get_N_worker_groups();
     void set_N_worker_groups(int);
-
-    friend class test_mpi_partition;
   };
 
 }
