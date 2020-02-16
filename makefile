@@ -11,6 +11,7 @@ TESTS_CPP_SRC_FILES = $(wildcard *_tests.cpp)
 TESTS_CPP_OBJ_FILES = $(patsubst %.cpp, %.cpp.o, $(TESTS_CPP_SRC_FILES))
 TESTS_CPP_BIN_FILES = $(patsubst %.cpp, %, $(TESTS_CPP_SRC_FILES))
 
+
 .PHONY: all clean test test_make
 
 all: libmango.a $(TESTS_CPP_BIN_FILES)
