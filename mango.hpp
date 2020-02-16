@@ -8,9 +8,12 @@ namespace mango {
   //////////////////////////////////////////////////////////////////////////////////////
   // Items related to partitioning the processors into worker groups:
 
+  class MPI_Partition_test;
+
   class MPI_Partition {
-    // Rationale for protected rather than private: the discussion of Boost towards the end of here: https://stackoverflow.com/questions/3676664/unit-testing-of-private-methods
-  protected:
+    friend class MPI_Partition_test;
+
+  protected: // Must be protected rather than private so unit testing can access non-public variables.
     MPI_Comm comm_world;
     MPI_Comm comm_worker_groups;
     MPI_Comm comm_group_leaders;

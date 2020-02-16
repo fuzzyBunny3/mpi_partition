@@ -1,7 +1,7 @@
 CXX = mpicxx
 CLINKER = $(CXX)
 
-EXTRA_CPP_COMPILE_FLAGS = -I /opt/local/include
+EXTRA_CPP_COMPILE_FLAGS = 
 EXTRA_CPP_LINK_FLAGS =
 
 # Automatically detect all the examples:
